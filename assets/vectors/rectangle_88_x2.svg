@@ -1,0 +1,9 @@
+<svg width="2400" height="1600" viewBox="0 0 2400 1600" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<path d="M0,0L2400,0L2400,1600L0,1600C0,530 0,710 0,0Z" transform="rotate(0 1200 800)" fill="url(#pf_0_16305_314)"/>
+<defs>
+<linearGradient id="pf_0_16305_314" x1="0" y1="800" x2="2400" y2="800" gradientUnits="userSpaceOnUse">
+<stop stop-color="#09203F"/>
+<stop offset="1" stop-color="#537895"/>
+</linearGradient>
+</defs>
+</svg>

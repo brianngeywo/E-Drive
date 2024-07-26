@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "278392078831",
+    "project_id": "e-drive-e5a48",
+    "storage_bucket": "e-drive-e5a48.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:278392078831:android:9d15af95f54b18983c761a",
+        "android_client_info": {
+          "package_name": "com.example.flutter_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDa0XbZr66X-HZXeawPpXAN9YX1YAPShlw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
