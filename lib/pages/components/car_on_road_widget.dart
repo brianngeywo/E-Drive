@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/constants.dart';
 
 class CarOnRoadWidget extends StatelessWidget {
   const CarOnRoadWidget({
@@ -32,19 +33,24 @@ class CarOnRoadWidget extends StatelessWidget {
               Positioned(
                 top: -10,
                 left: 80,
-                child: Container(
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage(
-                        'assets/images/th_13.png',
-                      ),
-                    ),
-                  ),
-                  child: Container(
-                    width: 169,
-                    height: 88,
-                  ),
-                ),
+                child: StreamBuilder(
+                    stream: dataSubjects.parentCarModelStream,
+                    builder: (context, snapshot) {
+                      final car = snapshot.data!;
+                      return Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(
+                              car['image'],
+                            ),
+                          ),
+                        ),
+                        child: Container(
+                          width: 169,
+                          height: 88,
+                        ),
+                      );
+                    }),
               ),
             ],
           ),

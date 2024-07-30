@@ -111,7 +111,7 @@ class _Calculation1State extends State<Calculation1> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 StreamBuilder(
-                    stream: fuelCostCalculationController.originLocationStream,
+                    stream: dataSubjects.originLocationStream,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         return InkWell(
@@ -160,7 +160,7 @@ class _Calculation1State extends State<Calculation1> {
                 ),
                 StreamBuilder(
                     stream:
-                        fuelCostCalculationController.destinationLocationStream,
+                        dataSubjects.destinationLocationStream,
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         return InkWell(

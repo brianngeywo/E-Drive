@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/constants.dart';
+import 'package:flutter_app/pages/components/custom_app_bar.dart';
 import 'package:flutter_app/pages/components/custom_bottom_navigation_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,26 +13,31 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final secondaryColor = Theme.of(context).secondaryHeaderColor;
+
     return Scaffold(
-      backgroundColor: const Color(0xFF090A0A),
+      appBar: AppBar(
+        actions: [
+          ThemeToggleButton(),
+        ],
+      ),
       bottomNavigationBar: const CustomBottomNavigationBar(
         currentEvent: NavigationEvent.home,
-   
       ),
       body: SafeArea(
         child: Container(
-          decoration: const BoxDecoration(
-            color: Color(0xFF090A0A),
-          ),
+          // decoration: const BoxDecoration(
+          //   color: Color(0xFF090A0A),
+          // ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                margin: const EdgeInsets.fromLTRB(20, 0, 20, 36),
+                margin: const EdgeInsets.fromLTRB(20, 20, 20, 36),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: const Color(0xFF202325),
+                    color: secondaryColor,
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: TextField(
@@ -78,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                         TextSpan(
-                          text: 'Kelvin !',
+                          text: authController.loggedInUser.value!.username,
                           style: GoogleFonts.getFont(
                             'Montserrat',
                             fontWeight: FontWeight.w700,

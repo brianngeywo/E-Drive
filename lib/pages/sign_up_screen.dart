@@ -70,7 +70,7 @@ class SignUpScreen extends StatelessWidget {
                 ),
               ),
               Container(
-                margin: EdgeInsets.fromLTRB(3, 0, 3, 15),
+                margin: const EdgeInsets.fromLTRB(3, 0, 3, 15),
                 child: Align(
                   alignment: Alignment.center,
                   child: Text(
@@ -80,7 +80,7 @@ class SignUpScreen extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                       fontSize: 24,
                       height: 1.5,
-                      color: Color(0xFFFFFFFF),
+                      color: const Color(0xFFFFFFFF),
                     ),
                   ),
                 ),
@@ -106,7 +106,7 @@ class SignUpScreen extends StatelessWidget {
                 },
               ),
               Container(
-                margin: EdgeInsets.fromLTRB(9.5, 0, 9.5, 0),
+                margin: const EdgeInsets.fromLTRB(9.5, 0, 9.5, 0),
                 child: Align(
                   alignment: Alignment.topCenter,
                   child: SizedBox(
@@ -118,15 +118,17 @@ class SignUpScreen extends StatelessWidget {
                         GradientButton(
                           text: 'Sign Up',
                           onPressed: () {
-                            // Your sign in logic here
-                            navigationController
-                                .navigateTo(NavigationEvent.home);
-                            print('Sign In button pressed');
+                            // Call the signUp method
+                            authController.signUp(
+                              emailController.text,
+                              passwordController.text,
+                              usernameController.text,
+                            );
                           },
                           colors: <Color>[
-                            Color(0xFFA0398A),
-                            Color(0xFFE23146),
-                            Color(0xFFFF3E47)
+                            const Color(0xFFA0398A),
+                            const Color(0xFFE23146),
+                            const Color(0xFFFF3E47)
                           ],
                         ),
                         InkWell(
@@ -161,7 +163,7 @@ class SignUpScreen extends StatelessWidget {
                 ),
               ),
               Container(
-                margin: EdgeInsets.fromLTRB(4.8, 20, 0, 0),
+                margin: const EdgeInsets.fromLTRB(4.8, 20, 0, 0),
                 child: RichText(
                   text: TextSpan(
                     style: GoogleFonts.getFont(
@@ -169,7 +171,7 @@ class SignUpScreen extends StatelessWidget {
                       fontWeight: FontWeight.w400,
                       fontSize: 12,
                       height: 1.5,
-                      color: Color(0xFF6C7072),
+                      color: const Color(0xFF6C7072),
                     ),
                     children: [
                       TextSpan(
@@ -188,7 +190,7 @@ class SignUpScreen extends StatelessWidget {
                           fontWeight: FontWeight.w400,
                           fontSize: 12,
                           height: 1.3,
-                          color: Color(0xFFE7121C),
+                          color: const Color(0xFFE7121C),
                         ),
                       ),
                     ],

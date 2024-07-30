@@ -19,6 +19,7 @@ class Calculation2 extends StatefulWidget {
 class _Calculation2State extends State<Calculation2> {
   @override
   Widget build(BuildContext context) {
+    final secondaryColor = Theme.of(context).secondaryHeaderColor;
     return Scaffold(
       appBar: CustomAppBar(
         onBackPressed: () =>
@@ -30,146 +31,143 @@ class _Calculation2State extends State<Calculation2> {
       ),
       body: Container(
         decoration: const BoxDecoration(),
-        child: Container(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: ConstrainedBox(
-                  constraints:
-                      const BoxConstraints(maxHeight: 170, minHeight: 100),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      StreamBuilder(
-                          stream: fuelCostCalculationController
-                              .parentCarModelStream,
-                          builder: (context, snapshot) {
-                            final carModel = snapshot.data!;
-                            return inforCardWidget(
-                              title: 'Car',
-                              inforItems: [
-                                StreamBuilder(
-                                    stream: fuelCostCalculationController
-                                        .parentCarStream,
-                                    builder: (context, snapshot) {
-                                      final car = snapshot.data!;
-                                      return Container(
-                                        margin: const EdgeInsets.fromLTRB(
-                                            0, 0, 0, 2),
-                                        child: inforIconText(
-                                            asset:
-                                                'assets/vectors/vector_12_x2.svg',
-                                            text: car['name'],
-                                            imageIsAsset: false),
-                                      );
-                                    }),
-                                Container(
-                                  margin: const EdgeInsets.fromLTRB(0, 0, 0, 2),
-                                  child: inforIconText(
-                                      asset: 'assets/vectors/vector_7_x2.svg',
-                                      text: carModel['name'],
-                                      imageIsAsset: false),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.fromLTRB(0, 0, 0, 2),
-                                  child: inforIconText(
-                                      asset: 'assets/vectors/group_8_x2.svg',
-                                      text:
-                                          "${carModel['fuel_tank_capacity']} L",
-                                      imageIsAsset: false),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.fromLTRB(0, 0, 0, 2),
-                                  child: inforIconText(
-                                      asset: 'assets/vectors/group_6_x2.svg',
-                                      text:
-                                          "${carModel['fuel_efficiency']} km/L",
-                                      imageIsAsset: false),
-                                ),
-                              ],
-                            );
-                          }),
-                      inforCardWidget(
-                        title: 'Route',
-                        inforItems: [
-                          StreamBuilder(
-                              stream: fuelCostCalculationController
-                                  .originLocationStream,
-                              builder: (context, snapshot) {
-                                return Container(
-                                  margin: const EdgeInsets.fromLTRB(0, 0, 0, 2),
-                                  child: inforIconText(
-                                      asset:
-                                          'assets/vectors/subtract_stroke_x2.svg',
-                                      text: snapshot.data!['name'],
-                                      imageIsAsset: false),
-                                );
-                              }),
-                          StreamBuilder(
-                              stream: fuelCostCalculationController
-                                  .destinationLocationStream,
-                              builder: (context, snapshot) {
-                                return Container(
-                                  margin: const EdgeInsets.fromLTRB(0, 0, 0, 2),
-                                  child: inforIconText(
-                                      asset:
-                                          'assets/vectors/subtract_stroke_1_x2.svg',
-                                      text: snapshot.data!['name'],
-                                      imageIsAsset: false),
-                                );
-                              }),
-                        ],
-                      ),
-                      StreamBuilder(
-                          stream: fuelCostCalculationController
-                              .selectedFuelTypeStream,
-                          builder: (context, snapshot) {
-                            return inforCardWidget(
-                              title: 'Fuel',
-                              inforItems: [
-                                Container(
-                                  margin: const EdgeInsets.fromLTRB(0, 0, 0, 2),
-                                  child: inforIconText(
-                                      asset: 'assets/vectors/group_3_x2.svg',
-                                      text: "${snapshot.data!['price']} Ksh",
-                                      imageIsAsset: false),
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.fromLTRB(0, 0, 0, 2),
-                                  child: inforIconText(
-                                      asset: 'assets/vectors/vector_2_x2.svg',
-                                      text: snapshot.data!['title'],
-                                      imageIsAsset: false),
-                                ),
-                              ],
-                            );
-                          }),
-                    ],
-                  ),
+        child: ListView(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(minHeight: 100),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    StreamBuilder(
+                        stream: dataSubjects.parentCarModelStream,
+                        builder: (context, snapshot) {
+                          final carModel = snapshot.data!;
+                          return inforCardWidget(
+                            title: 'Car',
+                            bgColor: secondaryColor,
+                            inforItems: [
+                              StreamBuilder(
+                                  stream: dataSubjects.parentCarStream,
+                                  builder: (context, snapshot) {
+                                    final car = snapshot.data!;
+                                    return Container(
+                                      margin:
+                                          const EdgeInsets.fromLTRB(0, 0, 0, 2),
+                                      child: inforIconText(
+                                          asset:
+                                              'assets/vectors/vector_12_x2.svg',
+                                          text: car['name'],
+                                          imageIsAsset: false),
+                                    );
+                                  }),
+                              Container(
+                                margin: const EdgeInsets.fromLTRB(0, 0, 0, 2),
+                                child: inforIconText(
+                                    asset: 'assets/vectors/vector_7_x2.svg',
+                                    text: carModel['name'],
+                                    imageIsAsset: false),
+                              ),
+                              Container(
+                                margin: const EdgeInsets.fromLTRB(0, 0, 0, 2),
+                                child: inforIconText(
+                                    asset: 'assets/vectors/group_8_x2.svg',
+                                    text: "${carModel['fuel_tank_capacity']} L",
+                                    imageIsAsset: false),
+                              ),
+                              Container(
+                                margin: const EdgeInsets.fromLTRB(0, 0, 0, 2),
+                                child: inforIconText(
+                                    asset: 'assets/vectors/group_6_x2.svg',
+                                    text: "${carModel['fuel_efficiency']} km/L",
+                                    imageIsAsset: false),
+                              ),
+                            ],
+                          );
+                        }),
+                    inforCardWidget(
+                      title: 'Route',
+                      bgColor: secondaryColor,
+                      inforItems: [
+                        StreamBuilder(
+                            stream: dataSubjects.originLocationStream,
+                            builder: (context, snapshot) {
+                              return Container(
+                                margin: const EdgeInsets.fromLTRB(0, 0, 0, 2),
+                                child: inforIconText(
+                                    asset:
+                                        'assets/vectors/subtract_stroke_x2.svg',
+                                    text: snapshot.data!['name'],
+                                    imageIsAsset: false),
+                              );
+                            }),
+                        StreamBuilder(
+                            stream: dataSubjects.destinationLocationStream,
+                            builder: (context, snapshot) {
+                              return Container(
+                                margin: const EdgeInsets.fromLTRB(0, 0, 0, 2),
+                                child: inforIconText(
+                                    asset:
+                                        'assets/vectors/subtract_stroke_1_x2.svg',
+                                    text: snapshot.data!['name'],
+                                    imageIsAsset: false),
+                              );
+                            }),
+                      ],
+                    ),
+                    StreamBuilder(
+                        stream: dataSubjects.selectedFuelTypeStream,
+                        builder: (context, snapshot) {
+                          return inforCardWidget(
+                            title: 'Fuel',
+                            bgColor: secondaryColor,
+                            inforItems: [
+                              Container(
+                                margin: const EdgeInsets.fromLTRB(0, 0, 0, 2),
+                                child: inforIconText(
+                                    asset: 'assets/vectors/group_3_x2.svg',
+                                    text: "${snapshot.data!['price']} Ksh",
+                                    imageIsAsset: false),
+                              ),
+                              Container(
+                                margin: const EdgeInsets.fromLTRB(0, 0, 0, 2),
+                                child: inforIconText(
+                                    asset: 'assets/vectors/vector_2_x2.svg',
+                                    text: snapshot.data!['title'],
+                                    imageIsAsset: false),
+                              ),
+                            ],
+                          );
+                        }),
+                  ],
                 ),
               ),
-              const CarOnRoadWidget(),
-              routeSummary(),
-              Container(
-                margin: const EdgeInsets.only(top: 20),
-                child: BlackCurvedButton(
-                  onPressed: () {
-                    navigationController
-                        .navigateTo(NavigationEvent.carCalculationsResult);
-                  },
-                  title: 'Calculate',
-                ),
+            ),
+            const CarOnRoadWidget(),
+            routeSummary(bgColor: secondaryColor),
+            Container(
+              margin: const EdgeInsets.only(top: 20),
+              child: BlackCurvedButton(
+                onPressed: () {
+                  calculationController.updateCalculations();
+                  navigationController
+                      .navigateTo(NavigationEvent.carCalculationsResult);
+                },
+                title: 'Calculate',
               ),
-            ],
-          ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+          ],
         ),
       ),
     );
   }
 
-  Widget routeSummary() {
+  Widget routeSummary({required Color bgColor}) {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: SizedBox(
@@ -179,7 +177,7 @@ class _Calculation2State extends State<Calculation2> {
           padding: const EdgeInsets.fromLTRB(0, 0, 0.1, 0),
           child: Container(
             decoration: BoxDecoration(
-              color: const Color(0xFFE9EAF4),
+              color: bgColor,
               borderRadius: BorderRadius.circular(22),
             ),
             child: Stack(
@@ -192,8 +190,7 @@ class _Calculation2State extends State<Calculation2> {
                   top: 5,
                   left: 10,
                   child: StreamBuilder(
-                      stream:
-                          fuelCostCalculationController.originLocationStream,
+                      stream: dataSubjects.originLocationStream,
                       builder: (context, snapshot) {
                         return Row(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -218,7 +215,7 @@ class _Calculation2State extends State<Calculation2> {
                                 fontWeight: FontWeight.w400,
                                 fontSize: 17,
                                 height: 2,
-                                color: const Color(0xFF000000),
+                                // color: const Color(0xFF000000),
                               ),
                             ),
                           ],
@@ -247,7 +244,7 @@ class _Calculation2State extends State<Calculation2> {
                       fontSize: 17,
                       height: 1.3,
                       letterSpacing: -0.4,
-                      color: const Color.fromARGB(255, 82, 85, 100),
+                      // color: const Color.fromARGB(255, 82, 85, 100),
                     ),
                   ),
                 ),
@@ -255,8 +252,7 @@ class _Calculation2State extends State<Calculation2> {
                   left: 10,
                   top: 125,
                   child: StreamBuilder(
-                      stream: fuelCostCalculationController
-                          .destinationLocationStream,
+                      stream: dataSubjects.destinationLocationStream,
                       builder: (context, snapshot) {
                         return Row(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -283,7 +279,7 @@ class _Calculation2State extends State<Calculation2> {
                                   fontWeight: FontWeight.w400,
                                   fontSize: 17,
                                   height: 2,
-                                  color: const Color(0xFF000000),
+                                  // color: const Color(0xFF000000),
                                 ),
                               ),
                             ),
@@ -300,7 +296,9 @@ class _Calculation2State extends State<Calculation2> {
   }
 
   Widget inforCardWidget(
-      {required String title, required List<Widget> inforItems}) {
+      {required String title,
+      required List<Widget> inforItems,
+      required Color bgColor}) {
     return ConstrainedBox(
       constraints: const BoxConstraints(
         minWidth: 120,
@@ -308,7 +306,7 @@ class _Calculation2State extends State<Calculation2> {
       ),
       child: Container(
         decoration: BoxDecoration(
-          color: const Color(0xFFE9EAF4),
+          color: bgColor,
           borderRadius: BorderRadius.circular(18),
         ),
         padding: const EdgeInsets.only(left: 6),
@@ -339,6 +337,9 @@ class _Calculation2State extends State<Calculation2> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: inforItems),
+            SizedBox(
+              height: 7,
+            ),
           ],
         ),
       ),
@@ -381,15 +382,20 @@ class _Calculation2State extends State<Calculation2> {
                     child: SvgPicture.asset(asset),
                   ),
                 ),
-          Text(
-            text,
-            style: GoogleFonts.getFont(
-              'Roboto Condensed',
-              fontWeight: FontWeight.w400,
-              fontSize: 14,
-              height: 1.6,
-              letterSpacing: 0.2,
-              color: const Color(0xFF000000),
+          SizedBox(
+            width: 50,
+            child: Text(
+              text,
+              overflow: TextOverflow.fade,
+              style: GoogleFonts.getFont(
+                'Roboto Condensed',
+                fontWeight: FontWeight.w400,
+                fontSize: 14,
+                height: 1.6,
+                letterSpacing: 0.2,
+
+                // color: const Color(0xFF000000),
+              ),
             ),
           ),
         ],

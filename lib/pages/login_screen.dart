@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/constants.dart';
+import 'package:flutter_app/pages/components/styled_email_text_field.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -9,7 +10,7 @@ import 'components/styled_username_text_field.dart';
 
 class LoginScreen extends StatelessWidget {
   final passwordController = TextEditingController();
-  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
 
   LoginScreen({super.key});
   @override
@@ -82,9 +83,9 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              StyledUsernameTextField(
-                icon: 'assets/vectors/user_x2.svg',
-                controller: usernameController,
+              StyledEmailTextField(
+                icon: 'assets/vectors/envelope_simple_x2.svg',
+                controller: emailController,
                 onChanged: (value) {
                   // Handle username changes
                 },
@@ -108,8 +109,8 @@ class LoginScreen extends StatelessWidget {
                         GradientButton(
                           text: 'Sign In',
                           onPressed: () {
-                            navigationController
-                                .navigateTo(NavigationEvent.home);
+                            authController.signIn(
+                                emailController.text, passwordController.text);
                           },
                           colors: const [
                             Color(0xFFA0398A),
@@ -148,22 +149,22 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              Container(
-                margin: const EdgeInsets.fromLTRB(0, 0, 7.1, 0),
-                child: Align(
-                  alignment: Alignment.topCenter,
-                  child: Text(
-                    'Forgot password?',
-                    style: GoogleFonts.getFont(
-                      'Montserrat',
-                      fontWeight: FontWeight.w400,
-                      fontSize: 12,
-                      height: 1.5,
-                      color: const Color(0xFFE7121C),
-                    ),
-                  ),
-                ),
-              ),
+              // Container(
+              //   margin: const EdgeInsets.fromLTRB(0, 0, 7.1, 0),
+              //   child: Align(
+              //     alignment: Alignment.topCenter,
+              //     child: Text(
+              //       'Forgot password?',
+              //       style: GoogleFonts.getFont(
+              //         'Montserrat',
+              //         fontWeight: FontWeight.w400,
+              //         fontSize: 12,
+              //         height: 1.5,
+              //         color: const Color(0xFFE7121C),
+              //       ),
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),

@@ -14,8 +14,8 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
+    final secColor = Theme.of(context).secondaryHeaderColor;
     return Scaffold(
-      backgroundColor: Colors.black,
       appBar: CustomAppBar(
         onBackPressed: () =>
             navigationController.navigateTo(NavigationEvent.home),
@@ -26,7 +26,7 @@ class _ProfileState extends State<Profile> {
       ),
       body: Column(
         children: [
-          carSummarySection(),
+          carSummarySection(color: secColor),
           Container(
             padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
             child: Row(
@@ -36,13 +36,14 @@ class _ProfileState extends State<Profile> {
                 Container(
                   margin: const EdgeInsets.fromLTRB(0, 0, 16, 0),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF1D1E22),
+                    color: secColor,
                     borderRadius: BorderRadius.circular(16),
                   ),
                   child: SizedBox(
                     width: 165,
                     height: 208,
                     child: SvgPicture.asset(
+                      color: Colors.grey,
                       'assets/vectors/map_1_x2.svg',
                     ),
                   ),
@@ -50,7 +51,7 @@ class _ProfileState extends State<Profile> {
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
-                      color: const Color(0xFF1D1E22),
+                      color: secColor,
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: Container(
@@ -110,13 +111,13 @@ class _ProfileState extends State<Profile> {
                           Container(
                             margin: const EdgeInsets.fromLTRB(2, 0, 0, 12),
                             child: Text(
-                              'Mwaniki Kelvin',
+                              authController.loggedInUser.value!.username,
                               style: GoogleFonts.getFont(
                                 'Montserrat',
                                 fontWeight: FontWeight.w500,
                                 fontSize: 16,
                                 letterSpacing: -0.3,
-                                color: const Color(0xFF838990),
+                                // color: const Color(0xFF838990),
                               ),
                             ),
                           ),
@@ -129,7 +130,7 @@ class _ProfileState extends State<Profile> {
                                 fontWeight: FontWeight.w500,
                                 fontSize: 28,
                                 letterSpacing: -0.3,
-                                color: const Color(0xFF72777A),
+                                // color: const Color(0xFF72777A),
                               ),
                             ),
                           ),
@@ -146,7 +147,7 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-  Container carSummarySection() {
+  Container carSummarySection({required Color color}) {
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
       child: SizedBox(
@@ -154,7 +155,7 @@ class _ProfileState extends State<Profile> {
         height: 250,
         child: Container(
           decoration: BoxDecoration(
-            color: const Color(0xFF1D1E22),
+            color: color,
             borderRadius: BorderRadius.circular(16),
           ),
           margin: const EdgeInsets.fromLTRB(0, 0, 4, 24),
@@ -173,7 +174,7 @@ class _ProfileState extends State<Profile> {
                       fontWeight: FontWeight.w500,
                       fontSize: 20,
                       height: 1.5,
-                      color: const Color(0xFFEFEFEF),
+                      // color: const Color(0xFFEFEFEF),
                     ),
                   ),
                 ),
@@ -199,7 +200,7 @@ class _ProfileState extends State<Profile> {
                     fontWeight: FontWeight.w400,
                     fontSize: 12,
                     letterSpacing: 2,
-                    color: const Color(0xFF838990),
+                    // color: const Color(0xFF838990),
                   ),
                 ),
               ),

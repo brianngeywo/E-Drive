@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/bff/fuel_types.dart';
+import 'package:flutter_app/static_data/fuel_types.dart';
 import 'package:flutter_app/constants.dart';
 import 'package:flutter_app/pages/components/custom_app_bar.dart';
 import 'package:flutter_app/pages/components/custom_bottom_navigation_bar.dart';
@@ -16,6 +16,7 @@ class Calculation extends StatefulWidget {
 class _CalculationState extends State<Calculation> {
   @override
   Widget build(BuildContext context) {
+    final secondaryColor = Theme.of(context).secondaryHeaderColor;
     return Scaffold(
       appBar: CustomAppBar(
         onBackPressed: () =>
@@ -27,19 +28,19 @@ class _CalculationState extends State<Calculation> {
       ),
       body: Container(
         decoration: const BoxDecoration(
-          color: Color(0xFF090A0A),
-        ),
+            // color: Color(0xFF090A0A),
+            ),
         child: Column(
           children: [
-            chooseFuelSection(),
-            pricesAndBanner(),
+            chooseFuelSection(secondaryColor),
+            pricesAndBanner(secondaryColor),
           ],
         ),
       ),
     );
   }
 
-  Container chooseFuelSection() {
+  Container chooseFuelSection(Color textColor) {
     return Container(
       margin: const EdgeInsets.fromLTRB(17, 20, 17, 24),
       child: Align(
@@ -58,7 +59,7 @@ class _CalculationState extends State<Calculation> {
                     'Montserrat',
                     fontWeight: FontWeight.w400,
                     fontSize: 16,
-                    color: const Color(0xFFFFFFFF),
+                    // color: const Color(0xFFFFFFFF),
                   ),
                 ),
               ),
@@ -72,7 +73,7 @@ class _CalculationState extends State<Calculation> {
                     .map(
                       (item) => InkWell(
                         onTap: () {
-                          fuelCostCalculationController.selectFuel(item);
+                          fuelSelectionService.selectFuel(item);
                           navigationController
                               .navigateTo(NavigationEvent.calculation1);
                           print(item);
@@ -90,12 +91,12 @@ class _CalculationState extends State<Calculation> {
                                 children: [
                                   Container(
                                     decoration: BoxDecoration(
-                                      color: const Color(0xFF1D1E22),
+                                      // color: const Color(0xFF1D1E22),
                                       borderRadius: BorderRadius.circular(40),
                                     ),
                                     margin: const EdgeInsets.fromLTRB(
                                         5.2, 0, 5.2, 16),
-                                    child: pumpIconMedium(),
+                                    child: pumpIconMedium(textColor),
                                   ),
                                   Text(
                                     item['title'].toString(),
@@ -104,7 +105,7 @@ class _CalculationState extends State<Calculation> {
                                       fontWeight: FontWeight.w500,
                                       fontSize: 12.8,
                                       height: 1.3,
-                                      color: const Color(0xFFF2F4F5),
+                                      // color: textColor,
                                     ),
                                   ),
                                 ],
@@ -123,7 +124,7 @@ class _CalculationState extends State<Calculation> {
     );
   }
 
-  SizedBox pumpIconMedium() {
+  SizedBox pumpIconMedium(Color textColor) {
     return SizedBox(
       width: 31,
       height: 30,
@@ -140,6 +141,8 @@ class _CalculationState extends State<Calculation> {
                 height: 5.9,
                 child: SvgPicture.asset(
                   'assets/vectors/vector_18_x2.svg',
+                  color: Color(0xFFFF3E47),
+                  theme: SvgTheme(currentColor: Colors.white),
                 ),
               ),
             ),
@@ -153,6 +156,8 @@ class _CalculationState extends State<Calculation> {
                   height: 30,
                   child: SvgPicture.asset(
                     'assets/vectors/group_7_x2.svg',
+                    color: Color(0xFFFF3E47),
+                    theme: SvgTheme(currentColor: Colors.white),
                   ),
                 ),
               ),
@@ -163,12 +168,13 @@ class _CalculationState extends State<Calculation> {
     );
   }
 
-  Container pricesAndBanner() {
+  Container pricesAndBanner(Color bgColor) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xFF1D1E22),
+        color: bgColor,
         borderRadius: BorderRadius.circular(40),
       ),
+      margin: const EdgeInsets.all(20),
       child: Container(
         margin: const EdgeInsets.all(20),
         child: Column(
@@ -179,13 +185,14 @@ class _CalculationState extends State<Calculation> {
             Container(
               margin: const EdgeInsets.fromLTRB(2, 0, 21, 0),
               child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: fuels
                       .map(
                         (item) => fuelPriceItem(
                           title: item['title'].toString(),
                           price: item['price'].toString(),
+                          bgColor: bgColor,
                         ),
                       )
                       .toList()),
@@ -196,13 +203,14 @@ class _CalculationState extends State<Calculation> {
     );
   }
 
-  Expanded fuelPriceItem({required String title, required String price}) {
+  Expanded fuelPriceItem(
+      {required String title, required String price, required Color bgColor}) {
     return Expanded(
       child: Container(
-        margin: const EdgeInsets.fromLTRB(0, 0, 23, 0),
+        margin: const EdgeInsets.all(8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: const Color(0xFF141414),
+          color: bgColor,
           boxShadow: const [
             BoxShadow(
               color: Color(0x0D0B0C1A),
@@ -238,7 +246,7 @@ class _CalculationState extends State<Calculation> {
                       fontWeight: FontWeight.w500,
                       fontSize: 16,
                       letterSpacing: -0.3,
-                      color: const Color(0xFFFFFFFF),
+                      // color: const Color(0xFFFFFFFF),
                     ),
                   ),
                 ],

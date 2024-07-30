@@ -24,13 +24,14 @@ class Select_OriginStatePlacePage extends State<SelectOriginPlacePage> {
 
   @override
   Widget build(BuildContext context) {
+    final secondaryColor = Theme.of(context).secondaryHeaderColor;
     return Scaffold(
       appBar: CustomAppBar(
         onBackPressed: () =>
             navigationController.navigateTo(NavigationEvent.calculation1),
         onSettingsPressed: () {},
       ),
-      backgroundColor: const Color(0xFF090A0A),
+      // backgroundColor: secondaryColor,
       bottomNavigationBar: const CustomBottomNavigationBar(
         currentEvent: NavigationEvent.originPage,
       ),
@@ -40,7 +41,7 @@ class Select_OriginStatePlacePage extends State<SelectOriginPlacePage> {
             margin: const EdgeInsets.fromLTRB(20, 20, 20, 36),
             child: Container(
               decoration: BoxDecoration(
-                color: const Color(0xFF202325),
+                color: secondaryColor,
                 borderRadius: BorderRadius.circular(16),
               ),
               child: TextField(
@@ -55,12 +56,12 @@ class Select_OriginStatePlacePage extends State<SelectOriginPlacePage> {
                     ),
                   ),
                   hintText: 'Search',
-                  hintStyle: const TextStyle(color: Color(0xFF888888)),
+                  // hintStyle: const TextStyle(color: Color(0xFF888888)),
                   border: InputBorder.none,
                   contentPadding: const EdgeInsets.symmetric(
                       vertical: 16.0, horizontal: 20.0),
                 ),
-                style: const TextStyle(color: Colors.white),
+                // style: const TextStyle(color: Colors.white),
                 onChanged: (value) async {
                   await searchLocationController
                       .getAutocompleteSuggestions(value);
@@ -84,8 +85,7 @@ class Select_OriginStatePlacePage extends State<SelectOriginPlacePage> {
                           onTap: () {
                             navigationController
                                 .navigateTo(NavigationEvent.calculation1);
-                            fuelCostCalculationController
-                                .saveOriginLocation(_location);
+                            locationService.saveOriginLocation(_location);
                             print(_location);
                           },
                         );

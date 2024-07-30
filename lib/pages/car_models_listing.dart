@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/bff/list_of_cars.dart';
+import 'package:flutter_app/controllers/settings_service.dart';
+import 'package:flutter_app/static_data/list_of_cars.dart';
 import 'package:flutter_app/constants.dart';
 import 'package:flutter_app/pages/components/custom_app_bar.dart';
 import 'package:flutter_app/pages/components/custom_bottom_navigation_bar.dart';
@@ -17,6 +18,9 @@ class SelectedCarModelsListings extends StatefulWidget {
 class _SelectedCarModelsListingsState extends State<SelectedCarModelsListings> {
   @override
   Widget build(BuildContext context) {
+    final customTheme = Theme.of(context).extension<CustomThemeExtension>();
+    final gradient = customTheme?.usedGradient;
+
     return Scaffold(
       appBar: CustomAppBar(
         onBackPressed: () =>
@@ -27,10 +31,10 @@ class _SelectedCarModelsListingsState extends State<SelectedCarModelsListings> {
           currentEvent: NavigationEvent.carModelsListing),
       body: Container(
         decoration: const BoxDecoration(
-          color: Color(0xFF090A0A),
-        ),
+            // color: Color(0xFF090A0A),
+            ),
         child: StreamBuilder<DataMap>(
-            stream: fuelCostCalculationController.parentCarStream,
+            stream: dataSubjects.parentCarStream,
             builder: (context, snapshot) {
               final car = snapshot.data;
               if (snapshot.hasData) {
@@ -58,7 +62,7 @@ class _SelectedCarModelsListingsState extends State<SelectedCarModelsListings> {
                       children: carModels
                           .where((model) => model['parent_car_id'] == car['id'])
                           .map(
-                            (item) => carModelListTile(item),
+                            (item) => carModelListTile(item, gradient),
                           )
                           .toList(),
                     ),
@@ -79,24 +83,17 @@ class _SelectedCarModelsListingsState extends State<SelectedCarModelsListings> {
     );
   }
 
-  Widget carModelListTile(DataMap carModel) {
+  Widget carModelListTile(DataMap carModel, LinearGradient? gradient) {
     return InkWell(
       onTap: () {
-        fuelCostCalculationController.selectCarModel(carModel);
+        fuelSelectionService.selectCarModel(carModel);
         navigationController.navigateTo(NavigationEvent.calculation);
       },
       child: Container(
         width: double.infinity,
         margin: const EdgeInsets.fromLTRB(0, 0, 0, 20),
         child: Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment(-0.684, 0.147),
-              end: Alignment(0.701, 0.147),
-              colors: <Color>[Color(0xFF1D1E22), Color(0x00141414)],
-              stops: <double>[0, 1],
-            ),
-          ),
+          decoration: BoxDecoration(gradient: gradient),
           child: Container(
             padding: const EdgeInsets.fromLTRB(22, 12, 22, 39),
             child: Text(
@@ -105,7 +102,7 @@ class _SelectedCarModelsListingsState extends State<SelectedCarModelsListings> {
                 'Montserrat',
                 fontWeight: FontWeight.w400,
                 fontSize: 14,
-                color: const Color(0xFFFFFFFF),
+                // color: const Color(0xFFFFFFFF),
               ),
             ),
           ),
